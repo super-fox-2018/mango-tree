@@ -81,6 +81,22 @@ class FruitTree {
     this._fruits = [];
   }
 
+  report() {
+    do {
+      if (this.age === 0) {
+        console.log(`The ${this.name} tree is alive :smile:`);
+      }
+      this.grow();
+      this.produceFruits();
+      this.harvest();
+      console.log(`[Year ${this.age} Report] Height = ${this.height}m | ${this.name} fruits harvested = ${this.harvested}`);
+      if (this._healthyStatus === false) {
+        console.log(`The ${this.name} tree is no more :sad:`);
+        console.log(`Total harvested = ${this.totalFruits[0]} (good = ${this.totalFruits[1]}, bad = ${this.totalFruits[2]})`);
+        console.log('--------------------------------------------------------------------------------')
+      }
+    } while (this._healthyStatus != false);
+  }
 }
 class Fruit {
   // Produce a fruit
@@ -158,38 +174,12 @@ class Pear extends Fruit {
   }
 }
 
-class Planting {
-  constructor(object) {
-    this.tree = object;
-  }
-
-  report() {
-    let tree = this.tree;
-    do {
-      if (tree.age === 0) {
-        console.log(`The ${tree.name} tree is alive :smile:`);
-      }
-      tree.grow();
-      tree.produceFruits();
-      tree.harvest();
-      console.log(`[Year ${tree.age} Report] Height = ${tree.height}m | ${tree.name} fruits harvested = ${tree.harvested}`);
-      if (tree._healthyStatus === false) {
-        console.log(`The ${tree.name} tree is no more :sad:`);
-        console.log(`Total harvested = ${tree.totalFruits[0]} (good = ${tree.totalFruits[1]}, bad = ${tree.totalFruits[2]})`);
-        console.log('--------------------------------------------------------------------------------')
-      }
-    } while (tree._healthyStatus != false);
-  }
-}
 // driver code
 let mangoTree = new MangoTree(mango);
 let appleTree = new AppleTree(apple);
 let pearTree = new PearTree(pear);
-let plantingMango = new Planting(mangoTree);
-let plantingApple = new Planting(appleTree);
-let plantingPear = new Planting(pearTree);
 
-plantingMango.report();
-plantingApple.report();
-plantingPear.report();
+mangoTree.report();
+appleTree.report();
+pearTree.report();
 
