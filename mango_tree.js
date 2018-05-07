@@ -42,9 +42,9 @@ class FruitTree {
       for (let i = 0; i < this._fruits.length; i++) {
         total += this._fruits[i]._qty;
         if (this._fruits[i]._quality === 'good') {
-          totGood++
+          totGood += this._fruits[i]._qty;
         } else {
-          totBad++
+          totBad += this._fruits[i]._qty;
         }
       }
       this._harvested = `${total} (${totGood} good, ${totBad} bad)`;
@@ -57,7 +57,7 @@ class FruitTree {
 
 class Fruit {
   constructor() {
-    this._qty = Math.floor(Math.random() * 4);
+    this._qty = Math.floor(Math.random() * 50);
     this._quality = this.randomQuality();
   }
 
@@ -116,7 +116,7 @@ if (!mangoTree.healthyStatus) {
 
 
 
-// Release 1
+
 class AppleTree  extends FruitTree{
   // Initialize a new AppleTree
   constructor() {
@@ -140,11 +140,10 @@ class AppleTree  extends FruitTree{
     //produce apple
     produceApple() {
       if (this._age >= this.ageFruit) {
-        let mango = new Fruit();
-        this._fruits.push(mango);
+        let apple = new Fruit();
+        this._fruits.push(apple);
       }
     }
- 
 }
 
 let appleTree = new AppleTree();
@@ -160,3 +159,43 @@ if (!appleTree.healthyStatus) {
   console.log("The tree has met its end. so sad");
 }
 
+class PearTree  extends FruitTree{
+  // Initialize a new AppleTree
+  constructor() {
+    super();
+    this.deadAge = 30;
+    this.ageFruit = 2;
+  }
+
+  grow() {
+    //overriding
+    super.grow();
+    if (this._age <= this.deadAge) {
+      this._height += Math.random()*1 + 1;
+    }
+    if (this._age === this.deadAge) {
+      this._healthyStatus = false;
+    }
+  }
+
+    //produce apple
+    producePear() {
+      if (this._age >= this.ageFruit) {
+        let pear = new Fruit();
+        this._fruits.push(pear);
+      }
+    }
+}
+
+let pearTree = new PearTree();
+console.log ('----------- pear -------------')
+do {
+  pearTree.grow();
+  pearTree.producePear();
+  pearTree.harvest();
+  console.log(`[Year ${pearTree.age} Report] Height = ${pearTree.height.toFixed(2)} m | Fruits harvested = ${pearTree.harvested}`)
+} while (pearTree.healthyStatus)
+
+if (!pearTree.healthyStatus) {
+  console.log("The tree has met its end. so sad");
+}
