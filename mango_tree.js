@@ -222,12 +222,12 @@
 
 // Release 2
 class FruitTree {
-  constructor(obj) {
+  constructor(matureAge,stopGrow,deadAge,treeType) {
     this._age = 0
     this._height = 0
-    this._matureAge = obj.matureAge // beda
-    this._stopGrow = obj.stopGrow // beda
-    this._deadAge = obj.deadAge // beda
+    this._matureAge = matureAge // beda
+    this._stopGrow = stopGrow // beda
+    this._deadAge = deadAge // beda
     this._fruitsProduced = 0
     //this._capacity = 20
     this._fruits = []
@@ -235,7 +235,7 @@ class FruitTree {
     this._bad = 0
     this._good = 0
     this._healthyStatus = true
-    this._treeType=obj.treeType
+    this._treeType=treeType
   }
 
   get type() {
@@ -286,7 +286,7 @@ class FruitTree {
   }
 
   // Produce some mangoes
-  produceMangoes() {
+  produce() {
     let random = Math.floor(Math.random()*35+1)
     if(this._age >= this._matureAge && this._age <= this._deadAge) {
       this._fruitsProduced = random
@@ -296,8 +296,17 @@ class FruitTree {
   // Get some fruits
   harvest() {
     for(let i=0;i<this._fruitsProduced;i++) {
-      let fruit = new Fruit()
-      this._fruits.push(fruit)
+      if(this._treeType == "MangoTree") {
+        let mango = new Mango()
+        this._fruits.push(mango)  
+      }else if(this._treeType == "AppleTree") {
+        let apple = new Apple()
+        this._fruits.push(apple)
+      }else {
+        let pear = new Pear()
+        this._fruits.push(pear)
+      }
+      
     }
 
     for(let j=0;j<this._fruits.length;j++) {
@@ -323,32 +332,62 @@ class Fruit {
   }
 }
 
+
 class AppleTree extends FruitTree {
   constructor() {
-    let obj = {
-      matureAge : 5,
-      stopGrow :17,
-      deadAge :25,
-      treeType :"Apple Tree"
-    }
-    super(obj)
+    super(5,17,25,"AppleTree")
   }
 
 }
+
+class Apple extends Fruit {
+  constructor() {
+    super()
+  }
+}
+
+
 
 class MangoTree extends FruitTree {
   constructor() {
-    super(3,15,20,"Mango Tree")
+    super(3,15,20,"MangoTree")
   }
 
 }
 
+class Mango extends Fruit {
+  constructor() {
+    super()
+  }
+}
 
-var appleTree = new AppleTree
-console.log(appleTree.type)
+class PearTree extends FruitTree {
+  constructor() {
+    super(1,12,25,"PearTree")
+  }
+
+}
+
+class Pear extends Fruit {
+  constructor() {
+    super()
+  }
+}
+
+// var pearTree = new PearTree()
+// pearTree.grow();
+// pearTree.produce();
+
+// pearTree.harvest();
+
+
+//console.log(pearTree)
+
+
+var appleTree = new AppleTree()
 do {
      appleTree.grow();
-     appleTree.produceMangoes();
+     appleTree.produce();
      appleTree.harvest();
      console.log(`[Year ${appleTree.age} Report] Height = ${appleTree.height} | Fruits harvested = ${appleTree.harvested}`)
    } while (appleTree.healthyStatus != false)
