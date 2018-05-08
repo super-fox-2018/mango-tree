@@ -1,8 +1,4 @@
-"use strict"
-
-// const obj = require('./sandbox.js');
-// const FruitTree = obj.FruitTree;
-// const Fruit = obj.Fruit;
+//Sandbox File
 
 class FruitTree {
   constructor(matureAge,maxAge) {
@@ -49,7 +45,7 @@ class FruitTree {
     }
   }
 
-  // Produce some fruits
+  // Produce some apples
   produceFruits() {
     let randomProduced = Math.floor(Math.random() * (10-2) + 10) //maxRange - minRange
     for (let i = 0; i < randomProduced; i ++) {
@@ -58,7 +54,7 @@ class FruitTree {
     //console.log(this._fruits)
   }
 
-  // Harvest some fruits
+  // Get some fruits
   harvest() {
     let goodFruits = 0;
     let badFruits = 0;
@@ -148,8 +144,8 @@ let mangoTree = new MangoTree();
 let mango = new Mango();
 let appleTree = new AppleTree();
 let apple = new Apple();
-let pearTree = new PearTree();
-let pear = new Pear();
+let appleTree = new PearTree();
+let apple = new Pear();
 
 
 //For Mango Tree
@@ -198,3 +194,6 @@ do {
 
 console.log (`The tree has met its end. :(`);
 console.log('\n\n');
+
+
+// module.exports = {FruitTree, Fruit}
